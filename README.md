@@ -4,18 +4,20 @@ ______________________________________________________________
 --Versão do Haskell: v8.8.4 (ou acima)
 
 
-        Compilação       
-  =======================
-  Pelo terminal, qualquer sistema com Haskell já instalado, 
-vá ao diretório do arquivo do gerenciador  e digite os seguintes
-comandos:
++ Compilação       
+|   Pelo terminal, qualquer sistema com Haskell já instalado, 
+| vá ao diretório do arquivo do gerenciador  e digite os seguintes
+| comandos:
 
 - Se o Main.exe ou Main não estiver compilado:
-      'ghc --make Main.hs'
+
+      ghc --make Main.hs
       
 - Depois digite o comando:
-      '.\Main'
 
-=======================
-         Uso       
-=======================  
+      .\Main
+
++ Uso
+|   Programa de uso geral para inserir e monitorar Tarefas de uso
+| cotidiano
+| 
