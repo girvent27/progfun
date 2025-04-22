@@ -5,9 +5,9 @@ ______________________________________________________________
 
 
 + Compilação       
-|   Pelo terminal, qualquer sistema com Haskell já instalado, 
-| vá ao diretório do arquivo do gerenciador  e digite os seguintes
-| comandos:
+>   Pelo terminal, qualquer sistema com Haskell já instalado, 
+> vá ao diretório do arquivo do gerenciador  e digite os seguintes
+> comandos:
 
 - Se o Main.exe ou Main não estiver compilado:
 
