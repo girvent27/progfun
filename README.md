@@ -18,13 +18,12 @@ ______________________________________________________________
       .\Main
 
 + Uso
-   Programa de uso geral para inserir e monitorar Tarefas de uso
- cotidiano com menu de opções para inserção, remoção, analíse e
- filtro/ordenação.
+   Programa  para inserir e monitorar Tarefas de uso cotidiano
+ com menu de opções para: inserção, remoção, analíse e filtro/ordenação.
    As tarefas são organizadas com as seguintes informações:
   
-  - Descrição: String para escrever detalhamento da tarefa;
-  - Status: Pendente ou Concluída (respeitar o uso de caixa alta e
+   - Descrição: String para escrever detalhamento da tarefa;
+   - Status: Pendente ou Concluída (respeitar o uso de caixa alta e
     acento);
    - Prioridade: Baixa, Media, Alta (respeitar o uso de caixa alta e
      acento);
