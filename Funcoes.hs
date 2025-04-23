@@ -72,7 +72,6 @@ procurarString _ [] = ""
 procurarString palavra (x:xs) | palavra == x = palavra
                               | otherwise    = procurarString palavra xs
 
-
 -- Contar quantidade de tarefas
 contarTarefas :: [Tarefa] -> Int
 contarTarefas [] = 0
@@ -99,24 +98,10 @@ verificarAtrasos ts dataAtual = filter condicao ts
 
 -- Calcula quantos dias faltam para o prazo de uma tarefa
 calcularDiasRestantes :: Tarefa -> Day -> Maybe Int
-calcularDiasRestantes ts dataAtual =
- case prazo ts of
+calcularDiasRestantes tarefa dataAtual =
+ case prazo tarefa of
   Just dataPrazo -> Just (fromInteger $ diffDays dataPrazo dataAtual)
   Nothing        -> Nothing
-
---------------------------------------
--- TESTES RETIRAR ANTES DE COMPILAR --
---------------------------------------
-
-hoje :: Day
-hoje = fromGregorian 2025 04 20
-
-t1 = Tarefa 1 "Reuniao importante" Pendente Alta Trabalho (Just $ fromGregorian 2025 04 15) ["Trabalho", "Urgencia"]
-t2 = Tarefa 2 "Ir no mercado" Pendente Media Pessoal (Just $ fromGregorian 2025 04 25) ["Casa", "Comida"]
-t3 = Tarefa 3 "Estudar Haskell" Concluída Baixa Estudos Nothing ["PF", "Faculdade"]
-t4 = Tarefa 4 "Enviar Trabalho PF" Pendente Alta Estudos Nothing ["PF", "Trabalho"]
-tarefas = [t1,t2,t3,t4]
-t5 = Tarefa 5 "Mandar mensagem professor" Pendente Media Estudos Nothing ["SD", "Faculdade"]
 
 -------------------------------------
 --------- SISTEMA DE TAGS -----------
@@ -153,3 +138,66 @@ quickSort (x:xs) = quickSort menores ++ [x] ++ quickSort maiores
  where
   menores = filter (< x) xs
   maiores = filter (>= x) xs
+  
+-------------------------------------
+------- GERADOR DE RELATÓRIO --------
+-------------------------------------
+
+--Calcula quantas tarefas estão pendentes para gerar relatório
+calculaPendentes :: [Tarefa] -> Int
+calculaPendentes [] = 0
+calculaPendentes (x:xs) |status x == Pendente = 1 + calculaPendentes xs
+                        |otherwise = calculaPendentes xs
+                        
+--Calcula quantas tarefas são da categoria trabalho gerar relatório
+calculaTrab :: [Tarefa] -> Int
+calculaTrab [] = 0
+calculaTrab (x:xs) |categoria x == Trabalho = 1 + calculaTrab xs
+                   |otherwise = calculaTrab xs
+
+--Calcula quantas tarefas são da categoria estudos para gerar relatório
+calculaEst :: [Tarefa] -> Int
+calculaEst [] = 0
+calculaEst (x:xs) |categoria x == Estudos = 1 + calculaEst xs
+                  |otherwise = calculaEst xs
+
+--Calcula quantas tarefas são da categoria pessoal para gerar relatório
+calculaPessoal :: [Tarefa] -> Int
+calculaPessoal [] = 0
+calculaPessoal (x:xs) |categoria x == Pessoal = 1 + calculaPessoal xs
+                      |otherwise = calculaPessoal xs
+                    
+                    
+--------------------------------------
+--------------- TESTES  --------------
+--------------------------------------
+
+--PRA APAGAR ISSO NÉ????
+hojeTeste :: Day
+hojeTeste = fromGregorian 2025 04 20
+
+t1 = Tarefa 1 "Reuniao importante" Pendente Alta Trabalho (Just $ fromGregorian 2025 04 15) ["Trabalho", "Urgencia"]
+t2 = Tarefa 2 "Ir no mercado" Pendente Media Pessoal (Just $ fromGregorian 2025 04 25) ["Casa", "Comida"]
+t3 = Tarefa 3 "Estudar Haskell" Concluída Baixa Estudos Nothing ["PF", "Faculdade"]
+t4 = Tarefa 4 "Enviar Trabalho PF" Pendente Alta Estudos Nothing ["PF", "Trabalho"]
+t5 = Tarefa 5 "Mandar mensagem professor" Pendente Media Estudos Nothing ["SD", "Faculdade"]
+tarefas = [t1,t2,t3,t4]
+
+--ESSE NAO APAGA NÃO
+--Lista de Tarefas pre-definidas para testes das funcionalidades
+tarefasTeste :: [Tarefa]
+tarefasTeste = [
+    Tarefa 1 "Entregar relatório" Pendente Alta Trabalho (Just (fromGregorian 2024 05 15)) ["urgente", "cliente"],
+    Tarefa 2 "Reunião de equipe" Pendente Media Trabalho (Just (fromGregorian 2025 04 23)) ["reunião"],
+    Tarefa 3 "Estudar Haskell" Concluída Alta Estudos Nothing ["programação", "prova"],
+    Tarefa 4 "Comprar presentes" Pendente Baixa Pessoal (Just (fromGregorian 2024 12 20)) ["natal"],
+    Tarefa 5 "" Pendente Media Outro Nothing [],
+    Tarefa 6 "Revisar documento" Pendente Alta Trabalho (Just (fromGregorian 2024 06 10)) ["relatório", "urgente", "cliente"],
+    Tarefa 7 "Enviar proposta" Concluída Media Trabalho (Just (fromGregorian 2024 03 10)) ["cliente"],
+    Tarefa 8 "Preparar apresentação" Pendente Alta Estudos (Just (fromGregorian 2024 05 05)) ["prova", "slides"],
+    Tarefa 9 "Ir à academia" Pendente Baixa Pessoal Nothing [],
+    Tarefa 10 "Organizar armário" Concluída Baixa Outro Nothing ["organização"]
+    ]
+
+
+
